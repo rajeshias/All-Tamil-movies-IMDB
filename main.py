@@ -18,6 +18,8 @@ for i in range(1, 6400, 50):
     listMovies = wait.until(EC.presence_of_all_elements_located((By.XPATH, "//h3[@class='lister-item-header']/a")))
     movieYear = wait.until(EC.presence_of_all_elements_located((By.XPATH, "//span[@class='lister-item-year text-muted unbold']")))
     for movie, year in zip(listMovies, movieYear):
+        if "untitled" in movie.text.lower():
+            continue
         movieList.append({
             "label": movie.text,
             "year": year.text.split(" ")[-1].replace("(","").replace(")","")
